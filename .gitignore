@@ -1,0 +1,16 @@
+# File extensions that should never be checked in regardless of which project
+# directory they reside in.
+*.DS_Store
+*bak
+*~
+*~HEAD
+.AppleDouble
+.LSOverride
+.Trash-*
+._*
+Desktop.ini
+Thumbs.db
+ehthumbs.db
+.directory
+.fuse_hidden*
+.vscode
