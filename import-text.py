@@ -173,11 +173,14 @@ if __name__ == "__main__":
             exit(1)
         else:
             date_suffix = suffixes.pop()
+            date = date_suffix[0:4] + '-' + date_suffix[4:6] + '-' + date_suffix[6:8]
 
         with sqlite3.connect("pbs-{}.sqlite3".format(date_suffix)) as db:
 
             with open("schema-text.sql") as f:
                 db.executescript(f.read())
+
+            db.execute("INSERT INTO pbsqlite (schedule_date, generator) VALUES (?, \"pbsqlite import-text\");", (date,))
 
             for filename, import_function in INTERESTING_FILES:
                 with z.open(filename.format(date_suffix)) as f:

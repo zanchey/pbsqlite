@@ -179,3 +179,9 @@ CREATE TABLE streamlined_authorities (
     treatment_code INTEGER,
     FOREIGN KEY (treatment_code) REFERENCES restrictions(treatment_code)
 );
+
+DROP TABLE IF EXISTS pbsqlite;
+CREATE TABLE pbsqlite (
+    schedule_date,
+    generator
+);
