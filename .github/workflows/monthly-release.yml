@@ -1,0 +1,36 @@
+name: 'Monthly release'
+
+on:
+  schedule:
+    - cron: '5 0 1 * *'
+#            │ │ │ │ │
+#   min 0-59 ┘ │ │ │ └ weekday 0-6
+#    hour 0-23 ┘ │ └ month 1-12
+#                └ day 1-31
+#
+# GitHub Actions' scheduler runs in UTC, which is up to 11 hours behind the
+# east coast of Australia; what time the schedule is actually released for
+# public download is not yet known.
+
+jobs:
+  release:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up variables
+        run: |
+          echo "year=$(date +%Y)" >> $GITHUB_ENV
+          echo "month=$(date +%m)" >> $GITHUB_ENV
+      - name: Download and create database
+        run: |
+          wget https://www.pbs.gov.au/downloads/$year/$month/$year-$month-01-v3extracts.zip
+          ./import-text.py $year-$month-01-v3extracts.zip
+          zip pbs-$year${month}01.sqlite3.zip pbs-$year${month}01.sqlite3
+      - name: Upload release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.year }}-${{ env.month }}-01
+          body: Generated database for ${{ env.year }}-${{ env.month }}-01
+          files: pbs-${{ env.year }}${{ env.month }}01.sqlite3.zip
+          fail_on_unmatched_files: True
