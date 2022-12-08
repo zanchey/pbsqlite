@@ -2,15 +2,22 @@ name: 'Monthly release'
 
 on:
   schedule:
-    - cron: '5 0 1 * *'
-#            │ │ │ │ │
-#   min 0-59 ┘ │ │ │ └ weekday 0-6
+    - cron: '55 23 30 4,6,9,11        *'
+    - cron: '55 23 31 1,3,5,7,8,10,12 *'
+    - cron: '55 23 28 2               *'
+#            │ │ │ │                  │
+#   min 0-59 ┘ │ │ │                  └ weekday 0-6
 #    hour 0-23 ┘ │ └ month 1-12
 #                └ day 1-31
 #
+
 # GitHub Actions' scheduler runs in UTC, which is up to 11 hours behind the
-# east coast of Australia; what time the schedule is actually released for
-# public download is not yet known.
+# east coast of Australia; the file generally appears well before midnight on
+# the day before it takes effect. GitHub Actions does not have support for
+# either timezone (https://github.com/community/community/discussions/13454) or
+# "L" (for last), so instead run on the last day of every month
+# (https://stackoverflow.com/a/6139310/) and just deal with the failures on
+# leap years. Hopefully this will be sorted by 2024.
 
 jobs:
   release:
