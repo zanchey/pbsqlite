@@ -21,10 +21,10 @@ on:
 
 jobs:
   release:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout
       - name: Set up variables
         run: |
           echo "year=$(date +%Y)" >> $GITHUB_ENV
@@ -35,7 +35,7 @@ jobs:
           ./import-text.py $year-$month-01-v3extracts.zip
           zip pbs-$year${month}01.sqlite3.zip pbs-$year${month}01.sqlite3
       - name: Upload release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.year }}-${{ env.month }}-01
           body: Generated database for ${{ env.year }}-${{ env.month }}-01
