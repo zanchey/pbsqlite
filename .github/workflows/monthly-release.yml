@@ -1,6 +1,8 @@
 name: 'Monthly release'
 
 on:
+  workflow_dispatch:
+
   schedule:
     - cron: '55 12 30 4,6,9,11        *'
     - cron: '55 12 31 1,3,5,7,8,10,12 *'
@@ -26,9 +28,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up variables
+        # Excitingly, GNU date parses "next month" as "in (days in this month) days" (see the GNU info pages, section 29.7)
+        # which overflows on shorter months after longer months. Use "next week" instead.
         run: |
-          echo "year=$(date +%Y --date='next month')" >> $GITHUB_ENV
-          echo "month=$(date +%m --date='next month')" >> $GITHUB_ENV
+          echo "year=$(date +%Y --date='next week')" >> $GITHUB_ENV
+          echo "month=$(date +%m --date='next week')" >> $GITHUB_ENV
       - name: Download and create database
         run: |
           wget https://www.pbs.gov.au/downloads/$year/$month/$year-$month-01-v3extracts.zip
