@@ -33,15 +33,24 @@ jobs:
         run: |
           echo "year=$(date +%Y --date='next week')" >> $GITHUB_ENV
           echo "month=$(date +%m --date='next week')" >> $GITHUB_ENV
-      - name: Download and create database
+      - name: Install pipenv
+        run: pip install pipenv
+      - name: Download and create text database
         run: |
           wget https://www.pbs.gov.au/downloads/$year/$month/$year-$month-01-v3extracts.zip
           ./import-text.py $year-$month-01-v3extracts.zip
           zip pbs-$year${month}01.sqlite3.zip pbs-$year${month}01.sqlite3
+      - name: Create API database
+        run: |
+          pipenv sync
+          pipenv run python3 import-api.py
+          zip pbs-$year-$month-$01.sqlite3.zip pbs-$year-$month-$01.sqlite3
       - name: Upload release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.year }}-${{ env.month }}-01
-          body: Generated database for ${{ env.year }}-${{ env.month }}-01
-          files: pbs-${{ env.year }}${{ env.month }}01.sqlite3.zip
+          body: Generated databases for ${{ env.year }}-${{ env.month }}-01
+          files:
+            pbs-${{ env.year }}${{ env.month }}01.sqlite3.zip
+            pbs-${{ env.year }}-${{ env.month }}-01.sqlite3.zip
           fail_on_unmatched_files: True

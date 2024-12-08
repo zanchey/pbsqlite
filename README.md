@@ -19,14 +19,26 @@
 > pbs: no but we will write an API to send the tables over JSON 🙃🙃🙃
 >
 > dev: well that just sounds like CSV with extra steps
+>
+> pbs: ok fair enough
+>
+> dev: come on pal I just finished making the API client
 
-You just want to be able to SELECT a drug? You can use these scripts to get an SQLite database from the PBS data. Text extracts are supported at present, with API integration planned.
+You just want to be able to SELECT a drug? You can use these scripts to get an SQLite database from the PBS data. Text extracts are supported through the import-text script, and the public API through import-API. The CSV downloads from the API are not yet supported.
 
-The data model is largely to what comes out of the text extracts. Some examples are included, or you can transform it into something more complex.
+The data model is largely to what comes out of the text extracts / API. Some examples are included, or you can transform it into something more complex.
+
+The API client uses [sqlite-utils](https://sqlite-utils.datasette.io/) as a dependency.
 
 SQLite creates automatic indexes for common queries, and the dataset is so small that most queries should complete in tens of milliseconds.
 
-## Usage
+## Usage (API)
+
+1. Create a new virtual environment with sqlite-utils installed; pipenv is recommended (run `pipenv sync`).
+1. Run `pipenv run python3 import-api.py`. This will download the most recent schedule.
+1. Use your new `pbs-2024-12-01.sqlite3` database with the world's most popular database software.
+
+## Usage (text extracts)
 
 1. Download the text extract Zip file for the month (eg `2021-05-01-v3extracts.zip`).
 1. Run `./import-text.py 2021-05-01-v3extracts.zip`.
