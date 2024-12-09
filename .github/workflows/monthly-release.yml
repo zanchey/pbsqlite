@@ -43,17 +43,19 @@ jobs:
           wget https://www.pbs.gov.au/downloads/$year/$month/$year-$month-01-v3extracts.zip
           ./import-text.py $year-$month-01-v3extracts.zip
           zip pbs-$year${month}01.sqlite3.zip pbs-$year${month}01.sqlite3
+          ls -lh pbs-$year${month}01.sqlite3.zip
       - name: Create API database
         run: |
           pipenv sync
           pipenv run python3 import-api.py
-          zip pbs-$year-$month-$01.sqlite3.zip pbs-$year-$month-$01.sqlite3
+          zip pbs-$year-$month-01.sqlite3.zip pbs-$year-$month-01.sqlite3
+          ls -lh pbs-$year-$month-01.sqlite3.zip
       - name: Upload release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.year }}-${{ env.month }}-01
           body: Generated databases for ${{ env.year }}-${{ env.month }}-01
-          files:
+          files: |
             pbs-${{ env.year }}${{ env.month }}01.sqlite3.zip
             pbs-${{ env.year }}-${{ env.month }}-01.sqlite3.zip
           fail_on_unmatched_files: True
