@@ -27,6 +27,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
       - name: Set up variables
         # Excitingly, GNU date parses "next month" as "in (days in this month) days" (see the GNU info pages, section 29.7)
         # which overflows on shorter months after longer months. Use "next week" instead.
