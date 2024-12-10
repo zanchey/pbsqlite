@@ -20,7 +20,7 @@
 >
 > dev: well that just sounds like CSV with extra steps
 >
-> pbs: ok fair enough
+> pbs: ok fair enough, we're making a zipfile full of CSVs available
 >
 > dev: come on pal I just finished making the API client
 
@@ -28,9 +28,11 @@ You just want to be able to SELECT a drug? You can use these scripts to get an S
 
 The data model is largely to what comes out of the text extracts / API. Some examples are included, or you can transform it into something more complex.
 
-The API client uses [sqlite-utils](https://sqlite-utils.datasette.io/) as a dependency.
-
 SQLite creates automatic indexes for common queries, and the dataset is so small that most queries should complete in tens of milliseconds.
+
+## Releases
+
+You can download pre-built databases from [pbsqlite releases on GitHub](https://github.com/zanchey/pbsqlite/releases/).
 
 ## Usage (API)
 
@@ -39,6 +41,8 @@ SQLite creates automatic indexes for common queries, and the dataset is so small
 1. Use your new `pbs-2024-12-01.sqlite3` database with the world's most popular database software.
 
 ## Usage (text extracts)
+
+The API client uses [sqlite-utils](https://sqlite-utils.datasette.io/) as a dependency.
 
 1. Download the text extract Zip file for the month (eg `2021-05-01-v3extracts.zip`).
 1. Run `./import-text.py 2021-05-01-v3extracts.zip`.
