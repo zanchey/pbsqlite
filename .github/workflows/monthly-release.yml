@@ -54,7 +54,12 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ env.year }}-${{ env.month }}-01
-          body: Generated databases for ${{ env.year }}-${{ env.month }}-01
+          body: |
+            Generated databases for ${{ env.year }}-${{ env.month }}-01
+
+            pbs-${{ env.year }}${{ env.month }}01.sqlite3.zip is created from the old-style text extracts.
+
+            pbs-${{ env.year }}-${{ env.month }}-01.sqlite3.zip is created from the PBS data distribution API.
           files: |
             pbs-${{ env.year }}${{ env.month }}01.sqlite3.zip
             pbs-${{ env.year }}-${{ env.month }}-01.sqlite3.zip
