@@ -228,7 +228,9 @@ if __name__ == "__main__":
         ),
         (
             "item-pricing-events",
-            ("li_item_id", "schedule_code"),
+            # The schema (see v3.2 data dictionary) says that the primary key for this table is a compound key of
+            # ("li_item_id", "schedule_code"), but this is not a unique combination as of schedule 4429
+            None,
             ((("li_item_id", "schedule_code"), "items"),),
         ),
         (
