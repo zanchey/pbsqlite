@@ -27,6 +27,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
@@ -46,8 +48,7 @@ jobs:
           ls -lh pbs-$year${month}01.sqlite3.zip
       - name: Create API database
         run: |
-          pipenv sync
-          pipenv run python3 import-api.py
+          uv run --script import-api.py
           zip pbs-$year-$month-01.sqlite3.zip pbs-$year-$month-01.sqlite3
           ls -lh pbs-$year-$month-01.sqlite3.zip
       - name: Upload release

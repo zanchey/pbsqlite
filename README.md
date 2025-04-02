@@ -36,10 +36,9 @@ You can download pre-built databases from [pbsqlite releases on GitHub](https://
 
 ## Usage (API)
 
-The API client uses [sqlite-utils](https://sqlite-utils.datasette.io/) as a dependency.
+The API client uses [sqlite-utils](https://sqlite-utils.datasette.io/) as a dependency. Using [uv](https://docs.astral.sh/uv/) is the easiest way to run this client.
 
-1. Create a new virtual environment with sqlite-utils installed; pipenv is recommended (run `pipenv sync`).
-1. Run `pipenv run python3 import-api.py`. This will download the most recent schedule.
+1. Run `uv run --script import-api.py`. This will download the most recent schedule.
 1. Use your new `pbs-2024-12-01.sqlite3` database with the world's most popular database software.
 
 ## Usage (text extracts)
