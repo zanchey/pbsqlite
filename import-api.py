@@ -29,7 +29,7 @@ def progress(*args, **kwargs):
 def make_request(table, schedule_code=None):
     # The API returns 10 records by default. An empty limit parameter appears to return everything.
     request = urllib.request.Request(
-        f"https://data-api.health.gov.au/pbs/api/v3/{table}?limit={f"&schedule_code={schedule_code}" if schedule_code else ""}",
+        f"https://data-api.health.gov.au/pbs/api/v3/{table}?limit={f'&schedule_code={schedule_code}' if schedule_code else ''}",
         headers={
             # Public subscription key, subject to significant rate-limiting
             "Subscription-Key": "2384af7c667342ceb5a736fe29f1dc6b",
