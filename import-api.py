@@ -1,4 +1,10 @@
 #! /usr/bin/env python3
+# /// script
+# requires-python = ">=3.13"
+# dependencies = [
+#     "sqlite-utils",
+# ]
+# ///
 #
 #    PBS API to SQLite importer
 #    Copyright 2024 David Adam <david.adam.au@gmail.com>
