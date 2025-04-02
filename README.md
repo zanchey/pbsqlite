@@ -36,13 +36,13 @@ You can download pre-built databases from [pbsqlite releases on GitHub](https://
 
 ## Usage (API)
 
+The API client uses [sqlite-utils](https://sqlite-utils.datasette.io/) as a dependency.
+
 1. Create a new virtual environment with sqlite-utils installed; pipenv is recommended (run `pipenv sync`).
 1. Run `pipenv run python3 import-api.py`. This will download the most recent schedule.
 1. Use your new `pbs-2024-12-01.sqlite3` database with the world's most popular database software.
 
 ## Usage (text extracts)
-
-The API client uses [sqlite-utils](https://sqlite-utils.datasette.io/) as a dependency.
 
 1. Download the text extract Zip file for the month (eg `2021-05-01-v3extracts.zip`).
 1. Run `./import-text.py 2021-05-01-v3extracts.zip`.
